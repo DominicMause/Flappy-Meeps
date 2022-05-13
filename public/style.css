@@ -1,0 +1,81 @@
+*, *::after, *::before{
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.content{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.content div{
+    flex: 1;
+}
+
+.highscore{
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.highscore div{
+    padding: 5px;
+}
+
+.highscore div:nth-child(odd){
+    background-color: #ccc;
+}
+
+canvas {
+    background-color: cornflowerblue;
+    height: 100vh;
+}
+
+.form-input {
+    gap: 5px;
+    margin: 5px;
+}
+
+.button-list {
+    margin: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+button {
+    border: none;
+    padding: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    outline: black 1px solid;
+}
+
+.btn-start {
+    background-color: #3f3;
+}
+
+.btn-restart {
+    background-color: #33f;
+    color: white;
+}
+
+.btn-stop {
+    background-color: #f33;
+}
+
+.resources img{
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+}
