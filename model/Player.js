@@ -1,23 +1,15 @@
 import Game from "../game/Game.js";
 
 export default class Player{
-    static PLAYER_COUNT = 0;
     static CHECKPOINT_TIME = 100;
-    #current_distance;
 
     constructor(){
         this.x = 50;
         this.y = 500;
         this.size = 40;
         this.velocityY = -10;
-        this.ID = this.getID();
         this.alive = true;
         this.points = 0;
-        this.#current_distance = 0;
-    }
-
-    getID(){
-        return this.PLAYER_COUNT++;
     }
 
     jump(){

@@ -1,4 +1,3 @@
-import Game from "../game/Game.js";
 import Layer from "../NeuralNetwork/Layer.js";
 import NeuralNetwork from "../NeuralNetwork/NeuralNetwork.js";
 import Player from "./Player.js";
@@ -11,8 +10,8 @@ export default class Meep extends Player{
         this.fitness = 0;
 
         let inputLayer = new Layer(layer.input);
-        let hiddenLayer = new Layer(layer.hidden, "sigmoid");
-        let outputLayer = new Layer(layer.output, "softmax");
+        let hiddenLayer = new Layer(layer.hidden, {activation: "sigmoid"});
+        let outputLayer = new Layer(layer.output, {activation: "softmax"});
 
         this.brain.add(inputLayer);
         this.brain.add(hiddenLayer);

@@ -51,7 +51,7 @@ export default class Population {
             if(i > 5 && i < this.popSize * .75){
                 this.meeps[i].brain = fittest.brain.clone();
             }else if (i > 5 && i >= this.popSize * .75) {
-                this.meeps[i] = secondFittest.brain.clone();
+                this.meeps[i].brain = secondFittest.brain.clone();
             }
             if(i > 5 && this.meeps[i].brain){
                 this.meeps[i].brain.mutate(.1);

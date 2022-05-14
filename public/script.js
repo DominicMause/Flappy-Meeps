@@ -49,7 +49,7 @@ socket.on("reset", (data) => {
 let died = 0;
 
 socket.on("dead", () => {
-    died = 1;
+    died = .5;
 })
 
 let nodes = [
@@ -129,9 +129,8 @@ function draw() {
     if (died > 0) {
         ctx.globalAlpha = died;
         ctx.fillStyle = "red"
-        console.log(died);
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        died -= .02;
+        died -= .01;
     }
     ctx.globalAlpha = 1;
 
@@ -165,30 +164,31 @@ function draw() {
 
         let best = alive[selected % alive.length].brain;
         for (var i = 1; i < 3; i++) {
-            for (var j = 0; j < best.layers[i].weights.length; j++) {
-                for (let k = 0; k < best.layers[i].weights[j].length; k++) {
-                    if (best.layers[i].weights[j][k] > 0) {
+            for (var j = 0; j < best.layers[i].neurons.length; j++) {
+                for (let k = 0; k < best.layers[i].neurons[j].weights.length; k++) {
+                    if (best.layers[i].neurons[j].weights[k] > 0) {
                         ctx.strokeStyle = "#22ff22"
                     } else {
                         ctx.strokeStyle = "#ff2222"
                     }
-                    ctx.lineWidth = 2 * Math.abs(best.layers[i].weights[j][k]);
+                    ctx.lineWidth = 2 * Math.abs(best.layers[i].neurons[j].weights[k]);
                     ctx.beginPath();
                     if (detail > 1) {
-                        ctx.moveTo(400 + nodes[i - 1][j].x * 2, 400 + nodes[i - 1][j].y * 2);
-                        ctx.lineTo(400 + nodes[i][k].x * 2, 400 + nodes[i][k].y * 2);
+                        ctx.moveTo(400 + nodes[i - 1][k].x * 2, 400 + nodes[i - 1][k].y * 2);
+                        ctx.lineTo(400 + nodes[i][j].x * 2, 400 + nodes[i][j].y * 2);
                     } else {
-                        ctx.moveTo(600 + nodes[i - 1][j].x, 600 + nodes[i - 1][j].y);
-                        ctx.lineTo(600 + nodes[i][k].x, 600 + nodes[i][k].y);
+                        ctx.moveTo(600 + nodes[i - 1][k].x, 600 + nodes[i - 1][k].y);
+                        ctx.lineTo(600 + nodes[i][j].x, 600 + nodes[i][j].y);
                     }
                     ctx.stroke();
                 }
             }
         }
+        
         if (detail > 1) {
-            ctx.drawImage(brain, 400, 400, 400, 400)
+            ctx.drawImage(brain,400, 400, 400,400);
         } else {
-            ctx.drawImage(brain, 600, 600, 200, 200)
+            ctx.drawImage(brain,600, 600, 200,200);
         }
     }
 }
