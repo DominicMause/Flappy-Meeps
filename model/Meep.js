@@ -1,22 +1,18 @@
 import Game from "../game/Game.js";
-import Layer from "../NeuralNetwork/Layer.js";
-import NeuralNetwork from "../NeuralNetwork/NeuralNetwork.js";
-import Player from "./Player.js";
+import Agent from "../NeuralNetwork/Agent.js";
 
-export default class Meep extends Player{
-
-    constructor(layer){
+export default class Meep extends Agent{
+    constructor(){
         super();
-        this.brain = new NeuralNetwork();
-        this.fitness = 0;
+        this.x = 50;
+        this.y = 500;
+        this.size = 40;
+        this.velocityY = -10;
+        this.alive = true;
+    }
 
-        let inputLayer = new Layer(layer.input);
-        let hiddenLayer = new Layer(layer.hidden, "sigmoid");
-        let outputLayer = new Layer(layer.output, "softmax");
-
-        this.brain.add(inputLayer);
-        this.brain.add(hiddenLayer);
-        this.brain.add(outputLayer);
+    jump(){
+        this.velocityY = -70;
     }
 
     update(deltaTime, obstacle){
@@ -34,6 +30,14 @@ export default class Meep extends Player{
             this.jump();
         }
 
-        super.update(deltaTime);
+        this.velocityY += Game.GRAVITY * deltaTime/100;
+        this.y += this.velocityY * deltaTime/100;
+
+        if(this.y < 0 || this.y + this.size > 800)
+            this.alive = false;
+
+        if(this.alive){
+            this.reward();
+        }
     }
 }
