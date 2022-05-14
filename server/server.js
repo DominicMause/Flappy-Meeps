@@ -24,7 +24,7 @@ export default class Server{
     }
 
     start(){
-        this.server.listen(this.port, this.hostname, () => {
+        this.server.listen(this.port, () => {
             console.log(`Server is running at http://${this.hostname}:${this.port}/`);
         });
     }
