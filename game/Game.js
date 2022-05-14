@@ -1,4 +1,4 @@
-import Population from "../model/Population.js";
+import Population from "../model/MeepPopulation.js";
 import Obstacle from "./Obstacle.js";
 
 export default class Game {
@@ -8,7 +8,8 @@ export default class Game {
 
     constructor() {
         this.obstacle = [];
-        this.population = new Population(100, { input: 5, hidden: 8, output: 2 });
+        this.population = new Population(100,{input: { size: 5},hidden: [{ size: 8, activation: "sigmoid"}], output: {size: 2, activation: "softmax"}});
+        this.population.createPopulation();
         this.lastTick = 0;
         this.generation = 1;
         this.points = 0;
@@ -25,9 +26,9 @@ export default class Game {
         this.runningPoints++;
         
         this.population.update(deltaTime, this.obstacle);
-        for (let i = 0; i < this.population.meeps.length; i++) {
+        for (let i = 0; i < this.population.population.length; i++) {
             for (let j = 0; j < this.obstacle.length; j++) {
-                let meep = this.population.meeps[i];
+                let meep = this.population.population[i];
                 if (meep.alive &&
                     meep.x + meep.size >= this.obstacle[j].x &&
                     meep.x <= this.obstacle[j].x + this.obstacle[j].width &&
@@ -39,7 +40,7 @@ export default class Game {
             }
         }
 
-        let stillAlive = this.population.meeps.filter((meep) => meep.alive);
+        let stillAlive = this.population.population.filter((meep) => meep.alive);
         if (stillAlive.length <= 0) {
             this.score.push({gen: this.generation, points: this.points});
             this.score.sort((a,b) => b.points - a.points);

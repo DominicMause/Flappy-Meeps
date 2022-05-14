@@ -86,7 +86,7 @@ for(let i = 0; i < 25; i++){
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let alive = game.population.meeps.filter((meep) => meep.alive);
+    let alive = game.population.population.filter((meep) => meep.alive);
 
     for(let i = 0; i < pos.length; i++){
         if(pos[i].size == 1){
@@ -96,8 +96,8 @@ function draw() {
         }
     }
     ctx.globalAlpha = Math.max(1 / alive.length, 0.75);
-    for (let i = 0; i < game.population.meeps.length; i++) {
-        let meep = game.population.meeps[i];
+    for (let i = 0; i < game.population.population.length; i++) {
+        let meep = game.population.population[i];
         if (meep.alive) {
             ctx.drawImage(bird,meep.x, meep.y, meep.size, meep.size);
             if(detail > 0){
@@ -143,8 +143,8 @@ function draw() {
     ctx.strokeText(alive.length + " / " + game.population.popSize, 20 , canvas.height - 20);
     ctx.fillText("Generation: " + game.generation, 20 , 30);
     ctx.strokeText("Generation: " + game.generation, 20 , 30);
-    ctx.fillText("Fitness: " + alive[0].points, 20 , 60);
-    ctx.strokeText("Fitness: " + alive[0].points, 20 , 60);
+    ctx.fillText("Fitness: " + alive[0].fitness, 20 , 60);
+    ctx.strokeText("Fitness: " + alive[0].fitness, 20 , 60);
     
     ctx.font = "50px Arial"
     ctx.textAlign = 'center';
